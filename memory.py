@@ -14,7 +14,14 @@ from turtle import *
 from freegames import path
 
 car = path('car.gif')
-tiles = list(range(32)) * 2
+""" Modificación de los dígitos a emojis (se usó unicode)"""
+tiles = ["\U0001F600", "\U0001F601", "\U0001F602", "\U0001F607", "\U0001F929", 
+         "\U0001F61B", "\U0001F911", "\U0001F917", "\U0001F636", "\U0001F925",
+         "\U0001F62A", "\U0001F634", "\U0001F922", "\U0001F92E", "\U0001F975", 
+         "\U0001F976", "\U0001F92F", "\U0001F920", "\U0001F973", "\U0001F921", 
+         "\U0001F47B", "\U0001F47D", "\U0001F47E", "\U0001F916", "\U0001F648", 
+         "\U0001F498", "\U0001F9E1", "\U0001F49B", "\U0001F49A", "\U0001F499", 
+         "\U0001F49C", "\U0001F90E", "\U0001F5A4"] * 2
 state = {'mark': None}
 hide = [True] * 64
 # Tap counter
