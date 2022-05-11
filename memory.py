@@ -78,7 +78,7 @@ def draw():
         x, y = xy(mark)
         up()
         """Aqui estamos modificando, goto, color y añadimos align"""
-        goto(x+27, y+3) #Jugamos con la suma de los numeros para poder alinear correctamente su posicion
+        goto(x+11, y+12) #Jugamos con la suma de los numeros para poder alinear correctamente su posicion
         color('Blue') #Cambiamos el color del texto 
         write(tiles[mark],align="center", font=('Times new roman', 25, 'normal')) #Se utilizo la funcion de turtle en la caracteristica align para centrar mejor el texto
     """Este if esta verificando el contador de parejas encontradas para mostrar el Game over una vez se encuentren todas las parejas por eso esta dentro del draw para que se actualice"""
