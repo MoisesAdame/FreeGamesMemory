@@ -15,12 +15,19 @@ from freegames import path
 num_resultos=0 #Esto se debe llenar hasta 32 que es el maximo de numero segun los tiles que utilizaremos
 
 car = path('car.gif')
-tiles = list(range(32)) * 2
+""" Modificación de los dígitos a emojis (se usó unicode)"""
+tiles = ["\U0001F600", "\U0001F601", "\U0001F602", "\U0001F607", "\U0001F929", 
+         "\U0001F61B", "\U0001F911", "\U0001F917", "\U0001F636", "\U0001F925",
+         "\U0001F62A", "\U0001F634", "\U0001F922", "\U0001F92E", "\U0001F975", 
+         "\U0001F976", "\U0001F92F", "\U0001F920", "\U0001F973", "\U0001F921", 
+         "\U0001F47B", "\U0001F47D", "\U0001F47E", "\U0001F916", "\U0001F648", 
+         "\U0001F498", "\U0001F9E1", "\U0001F49B", "\U0001F49A", "\U0001F499", 
+         "\U0001F49C", "\U0001F90E", "\U0001F5A4"] * 2
 state = {'mark': None}
 hide = [True] * 64
 # Tap counter
-taps = {"number_taps":0}
-
+taps = {"number_taps": 0}
+writer = Turtle(visible=False)
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -59,6 +66,9 @@ def tap(x, y):
         state['mark'] = None
         num_resultos=num_resultos+1 #Esto actualizará a nuestro contador de parejas cada vez que se volteen los tiles de la imagen
 
+    # Counts the number of taps and displays it on the window
+    taps["number_taps"] += 1
+
 
 def draw():
     """Draw image and tiles."""
@@ -77,6 +87,7 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
+
         """Aqui estamos modificando, goto, color y añadimos align"""
         goto(x+11, y+12) #Jugamos con la suma de los numeros para poder alinear correctamente su posicion
         color('Blue') #Cambiamos el color del texto 
@@ -86,20 +97,23 @@ def draw():
         goto(0,70) #Esto nos coloca el texto en la imagen en la posicion 0, 70
         color("Red") #Color del texto
         write("Game_Over",align="center", font=('Times new roman', 30, 'normal'))
+        
+    # Display de contador de taps
+    writer.clear()
+    writer.goto(250, 115)
+    style = ('Arial', 20, 'italic')
+    writer.pendown()
+    writer.write('Taps: ' + str(taps["number_taps"]), font=style, align='center')
+    
     update()
     ontimer(draw, 100)
-
-# Function that counts the number of taps and displays it on the window
-def tap_counter(x, y):
-    taps["number_taps"] += 1
-    print(taps["number_taps"])
+    
 
 shuffle(tiles)
-setup(420, 420, 370, 0)
+setup(650, 420, 370, 0)
 addshape(car)
 hideturtle()
 tracer(False)
 onscreenclick(tap)
-onscreenclick(tap_counter)
 draw()
 done()
