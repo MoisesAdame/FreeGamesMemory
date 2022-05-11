@@ -90,12 +90,17 @@ def draw():
         # Se cambian los valores de y para centrar las figuras en el recuadro.
         goto(x + 13, y + 12)
         color('black')
-        write(tiles[mark], font=('Arial', 20, 'normal'))
-    """Este if esta verificando el contador de parejas encontradas para mostrar el Game over una vez se encuentren todas las parejas por eso esta dentro del draw para que se actualice"""
-    if num_resultos==32:
-        goto(0,70) #Esto nos coloca el texto en la imagen en la posicion 0, 70
-        color("Red") #Color del texto
-        write("Game_Over",align="center", font=('Times new roman', 30, 'normal'))
+        write(tiles[mark], font = ('Arial', 20, 'normal'))
+
+    """
+    Este if esta verificando el contador de parejas encontradas para mostrar el Game over 
+    una vez se encuentren todas las parejas por eso esta dentro del draw para que se actualice
+    """
+    if num_resultos == 32:
+        goto(0,70)      # Esto nos coloca el texto en la imagen en la posicion 0, 70
+        color("Red")    # Color del texto
+        write("Game_Over", align = "center", font = ('Times new roman', 30, 'normal'))
+
     # Display de contador de taps
     writer.clear()
     writer.goto(250, 115)
