@@ -21,9 +21,10 @@ tiles = ["\U0001F600", "\U0001F601", "\U0001F602", "\U0001F607", "\U0001F929",
          "\U0001F976", "\U0001F92F", "\U0001F920", "\U0001F973", "\U0001F921", 
          "\U0001F47B", "\U0001F47D", "\U0001F47E", "\U0001F916", "\U0001F648", 
          "\U0001F498", "\U0001F9E1", "\U0001F49B", "\U0001F49A", "\U0001F499", 
-         "\U0001F49C", "\U0001F90E", "\U0001F5A4"] * 2
+         "\U0001F49C", "\U0001F90E"] * 2
 state = {'mark': None}
 hide = [True] * 64
+num_resultos=0
 # Tap counter
 taps = {"number_taps": 0}
 writer = Turtle(visible=False)
@@ -55,6 +56,7 @@ def tap(x, y):
     """Update mark and hidden tiles based on tap."""
     spot = index(x, y)
     mark = state['mark']
+    global num_resultos
 
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
@@ -62,6 +64,7 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+        num_resultos=num_resultos+1 #Esto actualizará a nuestro contador de parejas cada vez que se volteen los tiles de la imagen
 
     # Counts the number of taps and displays it on the window
     taps["number_taps"] += 1
@@ -85,10 +88,19 @@ def draw():
         x, y = xy(mark)
         up()
         # Se cambian los valores de y para centrar las figuras en el recuadro.
-        goto(x + 3, y + 12)
+        goto(x + 13, y + 12)
         color('black')
-        write(tiles[mark], font=('Arial', 20, 'normal'))
-    
+        write(tiles[mark], font = ('Arial', 20, 'normal'))
+
+    """
+    Este if esta verificando el contador de parejas encontradas para mostrar el Game over 
+    una vez se encuentren todas las parejas por eso esta dentro del draw para que se actualice
+    """
+    if num_resultos == 32:
+        goto(0,70)      # Esto nos coloca el texto en la imagen en la posicion 0, 70
+        color("Red")    # Color del texto
+        write("Game_Over", align = "center", font = ('Times new roman', 30, 'normal'))
+
     # Display de contador de taps
     writer.clear()
     writer.goto(250, 115)
