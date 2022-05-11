@@ -18,7 +18,7 @@ tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
 # Tap counter
-taps = {"number_taps":0}
+taps = {"number_taps": 0}
 
 
 def square(x, y):
@@ -56,6 +56,10 @@ def tap(x, y):
         hide[mark] = False
         state['mark'] = None
 
+    # Counts the number of taps and displays it on the window
+    taps["number_taps"] += 1
+    print(taps["number_taps"])
+
 
 def draw():
     """Draw image and tiles."""
@@ -80,11 +84,7 @@ def draw():
 
     update()
     ontimer(draw, 100)
-
-# Function that counts the number of taps and displays it on the window
-def tap_counter(x, y):
-    taps["number_taps"] += 1
-    print(taps["number_taps"])
+    
 
 shuffle(tiles)
 setup(420, 420, 370, 0)
@@ -92,6 +92,5 @@ addshape(car)
 hideturtle()
 tracer(False)
 onscreenclick(tap)
-onscreenclick(tap_counter)
 draw()
 done()
