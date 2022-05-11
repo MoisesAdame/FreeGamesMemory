@@ -6,5 +6,6 @@ En este código se realizarón modificaciones a los juegos de Grantjenkd con la 
 2. Detectar cuando las parejas han sido volteadas
 3. Centrar los símbolos
 4. El elemento innovador al cambiar los números (del 0 al 31) por emojis
+5. Añadir un botón de autodestrucción
 
 Nota: Las modicaciones de este repositorio son al código del módulo de *freegames* de **memory.py**
