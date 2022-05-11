@@ -26,7 +26,7 @@ state = {'mark': None}
 hide = [True] * 64
 # Tap counter
 taps = {"number_taps": 0}
-
+writer = Turtle(visible=False)
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -65,7 +65,6 @@ def tap(x, y):
 
     # Counts the number of taps and displays it on the window
     taps["number_taps"] += 1
-    print(taps["number_taps"])
 
 
 def draw():
@@ -85,16 +84,24 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        # Se cambian los valores de y para centrar las figuras en el recuadro.
+        goto(x + 3, y + 12)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(tiles[mark], font=('Arial', 20, 'normal'))
+    
+    # Display de contador de taps
+    writer.clear()
+    writer.goto(250, 115)
+    style = ('Arial', 20, 'italic')
+    writer.pendown()
+    writer.write('Taps: ' + str(taps["number_taps"]), font=style, align='center')
 
     update()
     ontimer(draw, 100)
     
 
 shuffle(tiles)
-setup(420, 420, 370, 0)
+setup(650, 420, 370, 0)
 addshape(car)
 hideturtle()
 tracer(False)
