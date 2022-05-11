@@ -12,6 +12,7 @@ from random import *
 from turtle import *
 
 from freegames import path
+num_resultos=0 #Esto se debe llenar hasta 32 que es el maximo de numero segun los tiles que utilizaremos
 
 car = path('car.gif')
 """ Modificación de los dígitos a emojis (se usó unicode)"""
@@ -55,6 +56,7 @@ def tap(x, y):
     """Update mark and hidden tiles based on tap."""
     spot = index(x, y)
     mark = state['mark']
+    global num_resultos
 
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
@@ -62,6 +64,7 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+        num_resultos=num_resultos+1 #Esto actualizará a nuestro contador de parejas cada vez que se volteen los tiles de la imagen
 
     # Counts the number of taps and displays it on the window
     taps["number_taps"] += 1
@@ -80,22 +83,28 @@ def draw():
             square(x, y)
 
     mark = state['mark']
-
+    
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        # Se cambian los valores de y para centrar las figuras en el recuadro.
-        goto(x + 3, y + 12)
-        color('black')
-        write(tiles[mark], font=('Arial', 20, 'normal'))
-    
+
+        """Aqui estamos modificando, goto, color y añadimos align"""
+        goto(x+11, y+12) #Jugamos con la suma de los numeros para poder alinear correctamente su posicion
+        color('Blue') #Cambiamos el color del texto 
+        write(tiles[mark],align="center", font=('Times new roman', 25, 'normal')) #Se utilizo la funcion de turtle en la caracteristica align para centrar mejor el texto
+    """Este if esta verificando el contador de parejas encontradas para mostrar el Game over una vez se encuentren todas las parejas por eso esta dentro del draw para que se actualice"""
+    if num_resultos==32:
+        goto(0,70) #Esto nos coloca el texto en la imagen en la posicion 0, 70
+        color("Red") #Color del texto
+        write("Game_Over",align="center", font=('Times new roman', 30, 'normal'))
+        
     # Display de contador de taps
     writer.clear()
     writer.goto(250, 115)
     style = ('Arial', 20, 'italic')
     writer.pendown()
     writer.write('Taps: ' + str(taps["number_taps"]), font=style, align='center')
-
+    
     update()
     ontimer(draw, 100)
     
